@@ -1,7 +1,7 @@
 #defining a function calculating n!
 
 def factorial(num):
-    if num == 1 or num == 0:
+    if num <= 1:
         return 1
     
     return num * factorial(num - 1)
