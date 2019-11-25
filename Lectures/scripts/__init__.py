@@ -1,0 +1,2 @@
+from protein_map import ProteinDictDNA
+from read_fasta import ReadFASTA
