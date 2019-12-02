@@ -12,6 +12,7 @@ def main1():
         symbol =  random.choice(switcher)
         file.write(symbol)
         #time.sleep(0.2)
+    file.close()    
 
 def main2():
  

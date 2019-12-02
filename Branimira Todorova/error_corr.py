@@ -40,7 +40,7 @@ for i in var:
 
 print(len(problematic))
 
-for prob in problematic:
+#for prob in problematic:
     
 #print(len(nonprob))
 #reverseCompl()
