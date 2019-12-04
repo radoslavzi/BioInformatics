@@ -1,6 +1,5 @@
 import socket
 from threading import Thread
-from SocketServer import ThreadingMixIn
 
 TCP_IP = 'localhost'
 TCP_PORT = 9001
@@ -13,7 +12,7 @@ class ClientThread(Thread):
         self.ip = ip
         self.port = port
         self.sock = sock
-        print " New thread started for "+ip+":"+str(port)
+        print(" New thread started for "+str(ip)+":"+str(port))
 
     def run(self):
         filename='mytext.txt'
@@ -36,9 +35,9 @@ threads = []
 
 while True:
     tcpsock.listen(5)
-    print "Waiting for incoming connections..."
+    print("Waiting for incoming connections...")
     (conn, (ip,port)) = tcpsock.accept()
-    print 'Got connection from ', (ip,port)
+    print('Got connection from ', (ip,port))
     newthread = ClientThread(ip,port,conn)
     newthread.start()
     threads.append(newthread)
