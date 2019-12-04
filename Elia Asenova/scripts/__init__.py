@@ -1,0 +1,2 @@
+from fasta_parser import ReadFASTA
+from fasta_parser import ParseFASTA
