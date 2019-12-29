@@ -8,12 +8,6 @@ TCP_IP = '127.0.0.1'
 TCP_PORT = 9001
 BUFFER_SIZE = 1024
 
-tcpsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-tcpsocket.connect((TCP_IP,TCP_PORT))
-splitting_threads = []
-sum_all = 0
-seq_length = 0
-
 class WorkerThread(threading.Thread):
     def __init__(self, args):
         threading.Thread.__init__(self, args=args)
@@ -51,25 +45,42 @@ def splitSequence(seq, out_queue):
 
     out_queue.put(sum)
 
-seq_type = SequenceType.FastQ
-tcpsocket.send(str(seq_type).encode())
+def main():
+    tcpsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    tcpsocket.connect((TCP_IP,TCP_PORT))
+    splitting_threads = []
+    sum_all = 0
+    seq_length = 0
+    is_terminating_symbol = False
 
-while True:
-    data = tcpsocket.recv(BUFFER_SIZE)
-    data = data.decode()
-    if not data or data == '*':
-        break
-    result_queue = queue.Queue()
-    seq_length += len(data)
-    splitting_thread = threading.Thread(name="splitting_thread", target=splitSequence, args=(data, result_queue))
-    splitting_thread.start()
-    splitting_threads.append(splitting_thread)
-    sum_all += result_queue.get()
+    seq_type = SequenceType.FastQ
+    tcpsocket.send(str(seq_type).encode())
 
-for t in splitting_threads:
-    t.join()
+    while True:
+        if is_terminating_symbol == True:
+            break
+        data = tcpsocket.recv(BUFFER_SIZE)
+        data = data.decode()
+        # if not data:
+        #     break
+        if data[-1:] == '*':
+            is_terminating_symbol = True
+            data = data.replace('*', '')
+        result_queue = queue.Queue()
+        seq_length += len(data)
+        splitting_thread = threading.Thread(name="splitting_thread", target=splitSequence, args=(data, result_queue))
+        splitting_thread.start()
+        splitting_threads.append(splitting_thread)
+        sum_all += result_queue.get()
 
-with open("data/gc_content.txt", 'w') as f:
-    f.write(str(sum_all/seq_length))
+    for t in splitting_threads:
+        t.join()
 
-tcpsocket.close()
+    with open("data/gc_content.txt", 'w') as f:
+        f.write("GC Content:")
+        f.write(str(sum_all/seq_length*100) + '%')
+
+    tcpsocket.close()
+
+if __name__=="__main__":
+    main()
