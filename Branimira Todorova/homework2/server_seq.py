@@ -22,13 +22,10 @@ def processData(conn, data):
     fileName = ""
     if(data == SequenceType.Fasta.name):
         typeS = SequenceType.Fasta
-        fileName = 'data/fasta.fa'
-    elif(data == SequenceType.Multi_Fasta.name):
-        typeS = SequenceType.Multi_Fasta
-        fileName = 'data/multi_fasta.mfa'
+        fileName = 'data/server_fasta.fa'
     elif(data == SequenceType.FastQ.name):
         typeS = SequenceType.FastQ
-        fileName = 'data/SRR081241.filt.fastq'
+        fileName = 'data/server_fastq.fastq'
 
     print(typeS)
     print(fileName)
@@ -40,10 +37,11 @@ def processData(conn, data):
     test.parse()
     conn.send(test.sequence.encode('ascii'))
     conn.send("XXXXXXXXXXXXX".encode('ascii'))
+    #conn.close()
 
             
 while True:
-    data = conn.recv(1024)
+    data = conn.recv(BUFFER_SIZE)
     if not data:
         break
     
@@ -53,7 +51,7 @@ while True:
     newthread.start()
     threads.append(newthread)
 
-#conn.close()
+
 
 for t in threads:
     t.join()
