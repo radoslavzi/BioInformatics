@@ -37,27 +37,27 @@ class Multi_Fasta_Sequence(Sequence):
     def __init__(self, content, name=""):
         super().__init__(content, name)
         self.timestamp = datetime.timestamp(datetime.now())
-        self.fastas = []
-        current = []
+        self.sequences = []
+        currentSequenceLine = []
         name = ''
         for line in self.content:
             if(line[0] == '>'):
-                if(len(current) != 0):
-                    fasta = Fasta_Sequence([name] + current)
-                    self.fastas.append(fasta)
-                    current = []
+                if(len(currentSequenceLine) != 0):
+                    fastaSequence = Fasta_Sequence([name] + currentSequenceLine)
+                    self.sequences.append(fastaSequence)
+                    currentSequenceLine = []
 
                 name = line
             else:
-                current = current + [line]
+                currentSequenceLine = currentSequenceLine + [line]
 
-        if(len(current) != 0):
-            fasta = Fasta_Sequence([name] + current)
-            self.fastas.append(fasta)
+        if(len(currentSequenceLine) != 0):
+            fastaSequence = Fasta_Sequence([name] + currentSequenceLine)
+            self.sequences.append(fastaSequence)
 
     def parse(self):
 
-        for fasta in self.fastas:
+        for fasta in self.sequences:
             fasta.parse()
 
 
@@ -71,10 +71,10 @@ class FastaQ_Sequence(Sequence):
         self.quality_value = quality_value
 
     def parse(self):
-        temp = self.content[0][1:].split(" ")
+        splitFirstLine = self.content[0][1:].split(" ")
         if(self.name == ""):
-            self.name = temp[0]
-        self.description = temp[1].rstrip('\n')
+            self.name = splitFirstLine[0]
+        self.description = splitFirstLine[1].rstrip('\n')
         self.sequence = self.content[1]
         if(self.content[2][0] == '+'):
             self.has_quality_value = True
