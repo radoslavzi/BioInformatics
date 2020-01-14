@@ -91,7 +91,7 @@ class SequenceType(Enum):
 
 class SequenceParser:
 
-    def parse(self, seq_type, content, seq_name):
+    def parse(self, seq_type, content, seq_name="not_named"):
 
         if(seq_type == SequenceType.Fasta):
             return Fasta_Sequence(content, seq_name)
