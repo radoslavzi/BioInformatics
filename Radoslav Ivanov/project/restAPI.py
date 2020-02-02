@@ -1,25 +1,52 @@
 import requests, sys
-from flask import Flask, session, request, send_file
+from flask import Flask, request
 
 app = Flask(__name__)
-
 SERVER = "https://rest.ensembl.org"
 GENE_ID_EXT = '/sequence/id/'
 EXON_EXT = '/lookup/id/'
 
 @app.route('/v1/sequence/gene/id/<id>')
 def gene(id):
-    sequence = requests.get(SERVER + GENE_ID_EXT + id, headers={ "Content-Type" : "application/json"}).json()['seq']
+    sequence = requests.get(SERVER + GENE_ID_EXT + id, headers={ "Content-Type" : "application/json"}).json()
     exons = requests.get(SERVER + EXON_EXT + id + '?expand=1', headers={ "Content-Type" : "application/json"}).json()
-    responseExons =  buildExonResponse(exons['Transcript'], str(sequence))
+    
     gcContent = request.args.get('gc_content')
     swap =  request.args.get('swap')
     contentType = request.args.get('content-type')
 
     if gcContent:
-        calculateGCContent(swap, seq)
+        return calculateGCContent(swap, sequence['seq'])
+    elif contentType:
+        return getSequenceByContentType(id, sequence, contentType)
     else:
+        responseExons =  buildExonResponse(exons.get('Transcript'), str(sequence['seq']))
         return  {'seq': sequence, 'exons': responseExons}
+
+def getSequenceByContentType(id, sequence, contentType):
+
+    if contentType == 'fasta':
+        return fasta(id, sequence)
+    elif contentType == 'x-fasta':
+        return xFasta(id, sequence)
+    else:
+        return multiFasta(id, sequence)
+
+def fasta(id, sequence):
+    desc = ">" + sequence["id"] + "." + str(sequence["version"]) + " " + sequence["desc"]
+    return desc + "\n" + sequence["seq"]
+
+def xFasta(id, sequence):
+    desc = ">" + sequence["id"]
+    return desc + "\n" + sequence["seq"]
+
+def multiFasta(id, sequence):
+    result = ''
+    for seq in sequence:
+        desc = ">" + sequence["id"] + "." + str(sequence["version"]) + " " + sequence["desc"]
+        result += desc + "\n" + seq["seq"]
+    
+    return result
 
 def calculateGCContent(swap, seq):
     replaceDict = {}
@@ -33,6 +60,9 @@ def calculateGCContent(swap, seq):
 
 def buildExonResponse(transcripts, sequence):
     result = list()
+
+    if not(transcripts):
+        return ''
 
     for trans in transcripts:
         for exon in trans['Exon']:
