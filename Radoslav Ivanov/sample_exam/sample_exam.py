@@ -38,10 +38,6 @@ class SequenceBuilder():
         self.sequence = generatedSeq
         return self
     
-    def setSequence(self, seq):
-        self.sequence = seq
-        return self
-    
     def skipFirstLine(self):
         lines = self.sequence.splitlines()[1:]
         self.sequence = ''.join(lines)
