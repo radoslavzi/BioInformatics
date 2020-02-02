@@ -18,7 +18,6 @@ class ClientBuilder:
             self.sendData(SequenceType.Fasta.name, stream)
             gcCount =  self.recvData(stream) # threading.Thread(target=, args=(s,), daemon=True)
             self.writeIntoFile(gcCount, 'gc_content.txt')
-            
     
     def sendData(self, text, sock):
         sock.sendall(bytes(text, ENCODING))

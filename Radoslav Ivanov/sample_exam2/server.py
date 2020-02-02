@@ -12,9 +12,7 @@ ENCODING = 'utf-8'
 
 class ServerBuilder:
     
-    def start(self):
-
- 
+    def start(self): 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((LOCAL_SERVER, PORT))
             s.listen(5)
