@@ -1,9 +1,18 @@
-def dic_mfasta(filepath) -> dict:
-    with open(filepath, "r") as input_data:
+from sequence import Sequence
+
+
+class FastaSequence(Sequence):
+
+    def __init__(self, name, content):
+        super(FastaSequence, self).__init__(name, content)
+
+    def parse(self):
         result = {}
-        for line in input_data:
+        for line in self.content:
             current = line.strip()
-            if current[0] == '>':
+            if not current:
+                continue
+            elif current[0] == '>':
                 current_key = current[1:]
             else:
                 if current_key in result:
@@ -11,6 +20,3 @@ def dic_mfasta(filepath) -> dict:
                 else:
                     result[current_key] = current
         return result
-    return None
-
-print(dic_mfasta("mfasta.txt"))
