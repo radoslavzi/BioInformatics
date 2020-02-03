@@ -32,6 +32,8 @@ class Fasta_Sequence(Sequence):
                 current += line
         self.sequence = current
 
+        return self
+
 
 class Multi_Fasta_Sequence(Sequence):
     def __init__(self, content, name=""):
@@ -60,6 +62,8 @@ class Multi_Fasta_Sequence(Sequence):
         for fasta in self.sequences:
             fasta.parse()
 
+        return self
+
 
 class FastaQ_Sequence(Sequence):
 
@@ -81,6 +85,8 @@ class FastaQ_Sequence(Sequence):
 
         if(self.has_quality_value):
             self.quality_value = self.content[2]
+
+        return self
 
 
 class SequenceType(Enum):
