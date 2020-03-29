@@ -41,9 +41,9 @@ def create_relations(filePath, fromEntity, toEntity, name):
 
 
 def main():
-    # input_data("data/Sample.csv", "Sample")
+    input_data("data/Sample.csv", "Sample")
     # input_data("data/HugoSymbol.csv","HugoSymbol")
-    create_relations("data/mutation.csv", "Sample", "HugoSymbol", "MUTATION")
+    # create_relations("data/mutation.csv", "Sample", "HugoSymbol", "MUTATION")
 
 
 if __name__ == "__main__":
