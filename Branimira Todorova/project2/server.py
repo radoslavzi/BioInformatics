@@ -2,7 +2,7 @@ import http.client
 import sys
 import json
 import populatedataset
-estimator = populatedataset.cluster_k_means()
+estimator = populatedataset.cluster_k_means_scaled()
 from bson import json_util
 import os, requests
 from collections import Counter

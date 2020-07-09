@@ -64,6 +64,7 @@ def processDatasetClinical(neo4jSession, mongoDb):
   
 import pandas as pd
 from sklearn.cluster import KMeans
+from sklearn import preprocessing
 
 def loadDataset():
     data = pd.read_csv(filepath_or_buffer = 'dataset.csv', sep = ",")
@@ -77,10 +78,32 @@ def loadDataset():
 def cluster_k_means():
      bunch = loadDataset()
      estimator = KMeans(init='k-means++', n_clusters=10)
-     estimator.fit(bunch.data)
+     kfit = estimator.fit(bunch.data)
      print(estimator.labels_)
-  
-     return estimator
+     identified_clusters = kfit.predict(bunch.data)
+     print(identified_clusters)
+     bunch.data['Clusters'] = identified_clusters
+     print(bunch.data.sort_values(by='Clusters'))
+     return kfit
+
+
+def cluster_k_means_scaled():
+    #Passing the values of the dataset to Min-Max-Scaler
+    bunch = loadDataset()
+    data_values = bunch.data.values
+    print(data_values)
+    min_max_scaler = preprocessing.MinMaxScaler()
+    x_scaled = min_max_scaler.fit_transform(data_values)
+    data_scaled = pd.DataFrame(x_scaled, columns=bunch.data.columns)
+
+    kmeans = KMeans(init='k-means++', n_clusters=10)
+    kfit = kmeans.fit(data_scaled)
+    identified_clusters_scaled = kfit.predict(data_scaled)#Appending the identified clusters to the dataframe
+    clustered_data_scaled = bunch.data
+    clustered_data_scaled['Cluster'] = identified_clusters_scaled
+    
+    print(clustered_data_scaled.sort_values(by='Cluster'))
+    return kfit
 
 def main():
     driver = GraphDatabase.driver(
@@ -94,7 +117,8 @@ def main():
 
     #processDatasetClinical(session, mongodb)
 
-    cluster_k_means()
+    #cluster_k_means()
+    cluster_k_means_scaled()
 
     session.close()
     client.close()
