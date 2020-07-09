@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+82665f43-4199-5683-984c-7e01842f8406	18404	analyte	91ac9c48-a751-4e9a-96c3-558bb07c2754	General	Observation	2013-10-21T00:00:00	Approved	DNA analyte UUID: 4C130AE4-B1AA-4EC6-BA88-6B32460E0F9C was involved in an extraction protocol deviation wherein an additional column purification step was used as a means of buffer exchange on the column-eluted analyte.

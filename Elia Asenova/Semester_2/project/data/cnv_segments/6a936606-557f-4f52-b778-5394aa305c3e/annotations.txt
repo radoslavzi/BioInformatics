@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+7c126464-8144-514a-8bc8-322782126556	18423	analyte	44e34ec8-b65b-451c-aea9-89a6537bc689	General	Observation	2013-10-21T00:00:00	Approved	DNA analyte UUID: 44E34EC8-B65B-451C-AEA9-89A6537BC689 was involved in an extraction protocol deviation wherein isopropanol precipitation was used as a means of buffer exchange on the column-eluted analyte.

@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+caa3899b-9961-56ce-b015-1ddf95c57cba	18405	analyte	7291657b-2a8c-467d-a763-3de577b6401b	General	Observation	2013-10-21T00:00:00	Approved	DNA analyte UUID: 7291657B-2A8C-467D-A763-3DE577B6401B was involved in an extraction protocol deviation wherein an additional column purification step was used as a means of buffer exchange on the column-eluted analyte.

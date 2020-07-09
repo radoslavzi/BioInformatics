@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+eeb86acc-f52a-5121-a5cf-16053296542e	28983	aliquot	ebd66787-d03c-41f8-9054-ec39f4d0304f	Item flagged DNU	CenterNotification	2015-09-28T00:00:00	Approved	The aliquot failed Broad pipeline QC and not all files are suitable for use. Consult the SDRF file to determine which files are usable.

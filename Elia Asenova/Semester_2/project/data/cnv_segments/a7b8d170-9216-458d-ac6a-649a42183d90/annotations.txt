@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+50b03a27-96ee-50f3-85fd-3bcdb993951b	18406	analyte	fe7f0b20-42ce-48c7-a407-61dc0ea0878e	General	Observation	2013-10-21T00:00:00	Approved	DNA analyte UUID: FE7F0B20-42CE-48C7-A407-61DC0EA0878E was involved in an extraction protocol deviation wherein an additional column purification step was used as a means of buffer exchange on the column-eluted analyte.

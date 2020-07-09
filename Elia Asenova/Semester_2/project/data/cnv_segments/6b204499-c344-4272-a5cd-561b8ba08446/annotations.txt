@@ -1,0 +1,2 @@
+id	submitter_id	entity_type	entity_id	category	classification	created_datetime	status	notes
+35f5f0d9-803b-5cd7-9279-81e9354ed552	18407	analyte	e277fe01-b1da-4a50-a5f7-9d97706c29fe	General	Observation	2013-10-21T00:00:00	Approved	DNA analyte UUID: E277FE01-B1DA-4A50-A5F7-9D97706C29FE was involved in an extraction protocol deviation wherein an additional column purification step was used as a means of buffer exchange on the column-eluted analyte.

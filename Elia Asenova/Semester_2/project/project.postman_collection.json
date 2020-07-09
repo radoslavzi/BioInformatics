@@ -1,0 +1,234 @@
+{
+	"info": {
+		"_postman_id": "b976908b-3c3e-4121-8cfa-c99e8921c182",
+		"name": "python project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get patient by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/v1/patient/datatype/clinical/caseId/TCGA-A8-A09A",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"patient",
+						"datatype",
+						"clinical",
+						"caseId",
+						"TCGA-A8-A09A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create patient record",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"submitter_id\": \"1234\",\n\t\"tumor_stage\": \"2\",\n\t\"age_at_diagnosis\": \"45\",\n\t\"vital_status\": \"alive\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/v1/patient/datatype/clinical",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"patient",
+						"datatype",
+						"clinical"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update patient record",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Start\": 145\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/v1/patient/datatype/Copy Number Variation/caseId/TCGA-BH-A0B7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"patient",
+						"datatype",
+						"Copy Number Variation",
+						"caseId",
+						"TCGA-BH-A0B7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete patient record",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Start\": 145\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/v1/patient/datatype/Copy Number Variation/caseId/TCGA-BH-A0B7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"patient",
+						"datatype",
+						"Copy Number Variation",
+						"caseId",
+						"TCGA-BH-A0B7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "calculate survival time",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/v1/patient/predict/model/1/ageAtDiagnosis/70/tumorStage/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"v1",
+						"patient",
+						"predict",
+						"model",
+						"1",
+						"ageAtDiagnosis",
+						"70",
+						"tumorStage",
+						"10"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
