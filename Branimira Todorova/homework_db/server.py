@@ -24,17 +24,16 @@ def searchByCriteria(query):
 
     cached = my_redis.get(query)
     if(cached):
-        from_db = db.pubmed.find_one({"query" : query})
-        return from_db["res"]
+        return cached
     else:    
         in_db = db.pubmed.find_one({"query" : query})
         if(in_db):
-            my_redis.set(query, "cached")
+            my_redis.set(query, in_db["res"])
             return in_db["res"]
         else:    
             json_data = getFromPubmed("esearch.fcgi?db=pubmed&term=", query)
             db.pubmed.insert_one({ "query" : query, "res" : json_data})
-            my_redis.set(query, "cached")   
+            my_redis.set(query, in_db["res"])   
             return json_data
 
 def getFromPubmed(url, query):
@@ -48,19 +47,17 @@ def getFromPubmed(url, query):
 def searchById(id):
 
     cached = my_redis.get(id)
-    print(cached)
     if(cached):
-        from_db = db.pubmed.find_one({"id" : id})
-        return from_db["res"]
+        return cached
     else:    
         in_db = db.pubmed.find_one({"id" : id})
         if(in_db):
-            my_redis.set(id, "cached")
+            my_redis.set(id, in_db["res"])
             return in_db["res"]
         else:    
             json_data = getFromPubmed("esummary.fcgi?db=pubmed&id=", id)
             db.pubmed.insert_one({ "id" : id, "res" : json_data})
-            my_redis.set(id, "cached")   
+            my_redis.set(id, in_db["res"])   
             return json_data
            
     return json_data
